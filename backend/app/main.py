@@ -1,15 +1,13 @@
 from fastapi import FastAPI
+from app.api.routes.health import router as health_router
+from app.core.config import settings
+
 
 app = FastAPI(
-    title="AstraQuant API",
-    description="AI-powered investment intelligence platform",
-    version="1.0.0"
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION,
+    description="AI-powered investment intelligence platform"
 )
 
 
-@app.get("/health")
-def health_check():
-    return {
-        "project": "AstraQuant",
-        "status": "running"
-    }
+app.include_router(health_router)
